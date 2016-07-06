@@ -176,9 +176,9 @@ for dataFile in os.listdir(DATADIR):
                 }
         
         if EXTENDED:
-            dPowerConL1 = round( sdmdata.getfloat('MODBUS','L1_Watt'), 2 )
-            dPowerConL2 = round( sdmdata.getfloat('MODBUS','L2_Watt'), 2 )
-            dPowerConL3 = round( sdmdata.getfloat('MODBUS','L3_Watt'), 2 )
+            dPowerConL1 = round( sdmdata.getfloat('MODBUS','L1_Watt'), 3 )
+            dPowerConL2 = round( sdmdata.getfloat('MODBUS','L2_Watt'), 3 )
+            dPowerConL3 = round( sdmdata.getfloat('MODBUS','L3_Watt'), 3 )
             pvData['v7'] = dPowerConL1
             pvData['v8'] = dPowerConL2
             pvData['v9'] = dPowerConL3
