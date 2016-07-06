@@ -18,31 +18,39 @@ Main C code is from Mario Stuetz in thread  [123solar Eastron SDM630 DC](http://
 
 ##Installation
 1. If installing on Raspberry Pi, I suggest using a ram disk for storage to prevent wear on SD card.
+
   1. Create a tmp directory mount point for RAM disk
-	```bash 
+
+	```bash
 	sudo mkdir /var/tmp
 	```
+
   2. Add the following to bottom of */etc/fstab*
+
 	```
 	tmpfs /var/tmp tmpfs nodev,nosuid,size=1M 0 0
 	```
+
   3. Mount hte RAM disk to create it
-	```bash 
+
+	```bash
 	sudo mount /var/tmp
 	```
 
 1. Install libraries for modbus
-	```bash 
+
+	```bash
 	sudo aptitude install libmodbus-dev libmodbus5`
 	```
 
 	Compile with
-	```bash 
+	```bash
 	gcc sdm630-usb.c -o sdm630 `pkg-config --cflags --libs libmodbus`
 	```
 
 1. Copy files
-	```bash 
+
+	```bash
 	sudo mkdir /opt/sdm630
 	sudo cp config/sdm630.conf /etc/
 	sudo cp import/* /opt/sdm630/
