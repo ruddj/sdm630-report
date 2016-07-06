@@ -56,9 +56,9 @@ int main(int argc, char *argv[]){
 		printf("L1_Watt: %f\n",reform_uint16_2_float32(catcher[12],catcher[13]));
 		printf("L2_Watt: %f\n",reform_uint16_2_float32(catcher[14],catcher[15]));
 		printf("L3_Watt: %f\n",reform_uint16_2_float32(catcher[16],catcher[17]));
-		printf("L1_Volt_Amp: %f\n",reform_uint16_2_float32(catcher[18],catcher[19]));
-		printf("L2_Volt_Amp: %f\n",reform_uint16_2_float32(catcher[20],catcher[21]));
-		printf("L3_Volt_Amp: %f\n",reform_uint16_2_float32(catcher[22],catcher[23]));
+		printf("L1_VAac: %f\n",reform_uint16_2_float32(catcher[18],catcher[19]));
+		printf("L2_VAac: %f\n",reform_uint16_2_float32(catcher[20],catcher[21]));
+		printf("L3_VAac: %f\n",reform_uint16_2_float32(catcher[22],catcher[23]));
 		printf("L1_PF: %f\n",reform_uint16_2_float32(catcher[30],catcher[31]));
 		printf("L2_PF: %f\n",reform_uint16_2_float32(catcher[32],catcher[33]));
 		printf("L3_PF: %f\n",reform_uint16_2_float32(catcher[34],catcher[35]));
