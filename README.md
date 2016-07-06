@@ -1,13 +1,15 @@
 # sdm630-report
 Tools for monitoring an SDM630 3 phase meter and reporting output to PVoutput
 
+Main C code is from Mario Stuetz in thread  [123solar Eastron SDM630 DC](http://123solar.org/phpBB/viewtopic.php?t=232)
 
 ##Current Features
-- Reads current values over MODBUS from a SDM630 digital meter.
+- Reads current values over MODBUS from a Eastron SDM630 digital meter.
 - Uploads a generated config file to PVOutput for analyses and graphing
 - Can download weather data to include in upload
 
 ##Requirements
+- Eastron SDM630 DC installed in main switchboard
 - USB to RS485 adaptor.
   - I used a USB to RS485 TTL Serial Converter Adapter FTDI interface FT232RL 75176 Module S
 - sdm630-usb requires ModBus Libraries
@@ -15,6 +17,21 @@ Tools for monitoring an SDM630 3 phase meter and reporting output to PVoutput
 - Python3 script for PVOutput requires requests
 
 ##Installation
+1. If installing on Raspberry Pi, I suggest using a ram disk for storage to prevent wear on SD card.
+  1. Create a tmp directory mount point for RAM disk
+```bash 
+sudo mkdir /var/tmp
+```
+  2. Add the following to bottom of */etc/fstab*
+```
+tmpfs /var/tmp tmpfs nodev,nosuid,size=1M 0 0
+```
+  3. Mount hte RAM disk to create it
+```bash 
+sudo mount /var/tmp
+```
+
+1. Install libraries for modbus
 ```bash 
 sudo aptitude install libmodbus-dev libmodbus5`
 ```
@@ -22,6 +39,14 @@ sudo aptitude install libmodbus-dev libmodbus5`
 Compile with
 ```bash 
 gcc sdm630-usb.c -o sdm630 `pkg-config --cflags --libs libmodbus`
+```
+
+1. Copy files
+```bash 
+sudo mkdir /opt/sdm630
+sudo cp config/sdm630.conf /etc/
+sudo cp import/* /opt/sdm630/
+sudo cp output/* /opt/sdm630/
 ```
 
 ###Crontab entries
