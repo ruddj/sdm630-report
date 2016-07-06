@@ -26,9 +26,9 @@ parser.add_argument('OID', help = "SNMP OID to retrieve. Should begin with " + O
 #print(parser.parse_args(['--help']))
 
 
-args = parser.parse_args([OidBase + '.1.2.5',
-                         '-i "F:/Users/James/Documents/House/Electrical/Meter/SDM630/Simple/ACTsdm630.txt"'])
+#args = parser.parse_args([OidBase + '.11.1'])
 
+args = parser.parse_args()
 
 if args.verbose:
     VERBOSE = args.verbose
@@ -80,12 +80,303 @@ if sdmdata.get('MODBUS','read') != 'SUCCESSFUL' :
         print("SDM Data is invalid")
     sys.exit("SDM Data is invalid")
 
-# Watt Hours, Cumulative energy usage
-# Multiply by 1000 as in kW
-dEnergyCon=round( sdmdata.getfloat('MODBUS','IMPO_WH') * 1000)
+#
+#  GETNEXT requests - determine next valid instance
+#
+if Next == True:
+    if (OidReq == OidBase ) or (OidReq == OidBase + ".0")  :
+        OidReq = OidBase + ".1.0"
+    elif OidReq == OidBase + ".1.0":
+        OidReq = OidBase + ".1.1.1"
+    elif OidReq == OidBase + ".1.1.1":
+        OidReq = OidBase + ".1.1.2"
+    elif OidReq == OidBase + ".1.1.2":
+        OidReq = OidBase + ".1.1.3"
+    elif OidReq == OidBase + ".1.1.3":
+        OidReq = OidBase + ".1.2.1"
+    elif OidReq == OidBase + ".1.2.1":
+        OidReq = OidBase + ".1.2.2"
+    elif OidReq == OidBase + ".1.2.2":
+        OidReq = OidBase + ".1.2.3"
+    elif OidReq == OidBase + ".1.2.3":
+        OidReq = OidBase + ".2.0"
 
-# Watts, instantaneous usage
-dPowerCon=round( sdmdata.getfloat('MODBUS','P_TOT_W') )
+    elif OidReq == OidBase + ".2.0":
+        OidReq = OidBase + ".2.1.1"
+    elif OidReq == OidBase + ".2.1.1":
+        OidReq = OidBase + ".2.1.2"
+    elif OidReq == OidBase + ".2.1.2":
+        OidReq = OidBase + ".2.1.3"
+    elif OidReq == OidBase + ".2.1.3":
+        OidReq = OidBase + ".2.2.1"
+    elif OidReq == OidBase + ".2.2.1":
+        OidReq = OidBase + ".2.2.2"
+    elif OidReq == OidBase + ".2.2.2":
+        OidReq = OidBase + ".2.2.3"
+    elif OidReq == OidBase + ".2.2.3":
+        OidReq = OidBase + ".3.0"
 
-# System Voltage
-dVoltage=round( sdmdata.getfloat('MODBUS','Avg_Volt'), 2 )	
+    elif OidReq == OidBase + ".3.0":
+        OidReq = OidBase + ".3.1.1"
+    elif OidReq == OidBase + ".3.1.1":
+        OidReq = OidBase + ".3.1.2"
+    elif OidReq == OidBase + ".3.1.2":
+        OidReq = OidBase + ".3.1.3"
+    elif OidReq == OidBase + ".3.1.3":
+        OidReq = OidBase + ".3.2.1"
+    elif OidReq == OidBase + ".3.2.1":
+        OidReq = OidBase + ".3.2.2"
+    elif OidReq == OidBase + ".3.2.2":
+        OidReq = OidBase + ".3.2.3"
+    elif OidReq == OidBase + ".3.2.3":
+        OidReq = OidBase + ".4.0"
+
+    elif OidReq == OidBase + ".4.1":
+        OidReq = OidBase + ".4.1.2"
+    elif OidReq == OidBase + ".4.1.2":
+        OidReq = OidBase + ".4.1.3"
+    elif OidReq == OidBase + ".4.1.3":
+        OidReq = OidBase + ".4.2.1"
+    elif OidReq == OidBase + ".4.2.1":
+        OidReq = OidBase + ".4.2.2"
+    elif OidReq == OidBase + ".4.2.2":
+        OidReq = OidBase + ".4.2.3"
+    elif OidReq == OidBase + ".4.2.3":
+        OidReq = OidBase + ".5.0"
+
+    elif OidReq == OidBase + ".5.0":
+        OidReq = OidBase + ".5.1.1"
+    elif OidReq == OidBase + ".5.1.1":
+        OidReq = OidBase + ".5.1.2"
+    elif OidReq == OidBase + ".5.1.2":
+        OidReq = OidBase + ".5.1.3"
+    elif OidReq == OidBase + ".5.1.3":
+        OidReq = OidBase + ".5.2.1"
+    elif OidReq == OidBase + ".5.2.1":
+        OidReq = OidBase + ".5.2.2"
+    elif OidReq == OidBase + ".5.2.2":
+        OidReq = OidBase + ".5.2.3"
+    elif OidReq == OidBase + ".5.2.3":
+        OidReq = OidBase + ".6.0"
+
+    elif OidReq == OidBase + ".6.0":
+        OidReq = OidBase + ".6.1"
+    elif OidReq == OidBase + ".6.1":
+        OidReq = OidBase + ".7.0"
+
+    elif OidReq == OidBase + ".7.0":
+        OidReq = OidBase + ".7.1"
+    elif OidReq == OidBase + ".7.1":
+        OidReq = OidBase + ".8.0"
+
+    elif OidReq == OidBase + ".8.0":
+        OidReq = OidBase + ".8.1"
+    elif OidReq == OidBase + ".8.1":
+        OidReq = OidBase + ".9.0"
+
+    elif OidReq == OidBase + ".9.0":
+        OidReq = OidBase + ".9.1"
+    elif OidReq == OidBase + ".9.1":
+        OidReq = OidBase + ".10.0"
+
+    elif OidReq == OidBase + ".10.0":
+        OidReq = OidBase + ".10.1"
+    elif OidReq == OidBase + ".10.1":
+        OidReq = OidBase + ".11.0"
+
+    elif OidReq == OidBase + ".11.0":
+        OidReq = OidBase + ".11.1"
+    elif OidReq == OidBase + ".11.1":
+        OidReq = OidBase + ".12.0"
+
+    elif OidReq == OidBase + ".12.0":
+        OidReq = OidBase + ".12.1"
+
+    else:
+        if VERBOSE > 0:
+            print("No GETNEXT Value")
+        sys.exit()
+
+
+
+#else:
+    #
+    #  GET requests - check for valid instance
+    #
+
+
+
+
+#
+#  "Process" GET* requests - return config values
+#
+print (OidReq)
+
+if OidReq == OidBase + ".1.0":
+    print ("string\nVoltage")
+    sys.exit(0)
+elif OidReq == OidBase + ".1.1.1":
+    print ("string\nL1-Voltage")
+    sys.exit(0)
+elif OidReq == OidBase + ".1.1.2":
+    print ("string\nL2-Voltage")
+    sys.exit(0)
+elif OidReq == OidBase + ".1.1.3":
+    print ("string\nL3-Voltage")
+    sys.exit(0)
+elif OidReq == OidBase + ".1.2.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L1_Volt') ) )
+    sys.exit(0)
+elif OidReq == OidBase + ".1.2.2":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L2_Volt') ) )
+    sys.exit(0)
+elif OidReq == OidBase + ".1.2.3":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L3_Volt') ) )
+    sys.exit(0)
+
+
+elif OidReq == OidBase + ".2.0":
+    print ("string\nCurrent")
+    sys.exit(0)
+elif OidReq == OidBase + ".2.1.1":
+    print ("string\nL1-Amps")
+    sys.exit(0)
+elif OidReq == OidBase + ".2.1.2":
+    print ("string\nL2-Amps")
+    sys.exit(0)
+elif OidReq == OidBase + ".2.1.3":
+    print ("string\nL3-Amps")
+    sys.exit(0)
+elif OidReq == OidBase + ".2.2.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L1_Amps') ) )
+    sys.exit(0)
+elif OidReq == OidBase + ".2.2.2":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L2_Amps') ) )
+    sys.exit(0)
+elif OidReq == OidBase + ".2.2.3":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L3_Amps') ) )
+    sys.exit(0)
+
+
+elif OidReq == OidBase + ".3.0":
+    print ("string\nEnergy")
+    sys.exit(0)
+elif OidReq == OidBase + ".3.1.1":
+    print ("string\nL1-Watts")
+    sys.exit(0)
+elif OidReq == OidBase + ".3.1.2":
+    print ("string\nL2-Watts")
+    sys.exit(0)
+elif OidReq == OidBase + ".3.1.3":
+    print ("string\nL3-Watts")
+    sys.exit(0)
+elif OidReq == OidBase + ".3.2.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L1_Watt') ) )
+    sys.exit(0)
+elif OidReq == OidBase + ".3.2.2":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L2_Watt') ) )
+    sys.exit(0)
+elif OidReq == OidBase + ".3.2.3":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L3_Watt') ) )
+    sys.exit(0)
+
+
+elif OidReq == OidBase + ".4.0":
+    print ("string\nEnergy VA")
+    sys.exit(0)
+elif OidReq == OidBase + ".4.1.1":
+    print ("string\nL1-VoltAmps")
+    sys.exit(0)
+elif OidReq == OidBase + ".4.1.2":
+    print ("string\nL2-VoltAmps")
+    sys.exit(0)
+elif OidReq == OidBase + ".4.1.3":
+    print ("string\nL3-VoltAmps")
+    sys.exit(0)
+elif OidReq == OidBase + ".4.2.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L1_VAac') ) )
+    sys.exit(0)
+elif OidReq == OidBase + ".4.2.2":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L2_VAac') ) )
+    sys.exit(0)
+elif OidReq == OidBase + ".4.2.3":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L3_VAac') ) )
+    sys.exit(0)
+
+
+elif OidReq == OidBase + ".5.0":
+    print ("string\nPower Factor")
+    sys.exit(0)
+elif OidReq == OidBase + ".5.1.1":
+    print ("string\nL1-PF")
+    sys.exit(0)
+elif OidReq == OidBase + ".5.1.2":
+    print ("string\nL2-PF")
+    sys.exit(0)
+elif OidReq == OidBase + ".5.1.3":
+    print ("string\nL3-PF")
+    sys.exit(0)
+elif OidReq == OidBase + ".5.2.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L1_PF') ) )
+    sys.exit(0)
+elif OidReq == OidBase + ".5.2.2":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L2_PF') ) )
+    sys.exit(0)
+elif OidReq == OidBase + ".5.2.3":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L3_PF') ) )
+    sys.exit(0)
+
+elif OidReq == OidBase + ".6.0":
+    print ("string\n")
+    sys.exit(0)
+elif OidReq == OidBase + ".6.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','Avg_Volt') ) )
+    sys.exit(0)
+
+elif OidReq == OidBase + ".7.0":
+    print ("string\n")
+    sys.exit(0)
+elif OidReq == OidBase + ".7.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','TOT_Amp') ) )
+    sys.exit(0)
+
+elif OidReq == OidBase + ".8.0":
+    print ("string\n")
+    sys.exit(0)
+elif OidReq == OidBase + ".8.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','P_TOT_W') ) )
+    sys.exit(0)
+
+elif OidReq == OidBase + ".9.0":
+    print ("string\n")
+    sys.exit(0)
+elif OidReq == OidBase + ".9.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','P_FACTO') ) )
+    sys.exit(0)
+
+elif OidReq == OidBase + ".10.0":
+    print ("string\n")
+    sys.exit(0)
+elif OidReq == OidBase + ".10.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','Freq') ) )
+    sys.exit(0)
+
+elif OidReq == OidBase + ".11.0":
+    print ("string\n")
+    sys.exit(0)
+elif OidReq == OidBase + ".11.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','IMPO_WH') ) )
+    sys.exit(0)
+
+elif OidReq == OidBase + ".12.0":
+    print ("string\n")
+    sys.exit(0)
+elif OidReq == OidBase + ".12.1":
+    print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','EXPO_WH') ) )
+    sys.exit(0)
+
+
+else :
+    print ("string\nack... " + OidReq )
+    sys.exit(0)   # Should not happen
+
