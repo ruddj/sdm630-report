@@ -4,14 +4,15 @@ Tools for monitoring an SDM630 3 phase meter and reporting output to PVoutput
 Main C code is from Mario Stuetz in thread  [123solar Eastron SDM630 DC](http://123solar.org/phpBB/viewtopic.php?t=232)
 
 ##Current Features
-- Reads current values over MODBUS from a Eastron SDM630 digital meter.
-- Uploads a generated config file to PVOutput for analyses and graphing
+- Reads current values over MODBUS from a Eastron SDM630 digital meter and exports to an ini file
+- Uploads data to PVOutput for analyses and graphing
 - Can download weather data to include in upload
 
 ##Requirements
 - Eastron SDM630 DC installed in main switchboard
 - USB to RS485 adaptor.
   - I used a USB to RS485 TTL Serial Converter Adapter FTDI interface FT232RL 75176 Module S
+- Or a TCp-RS485 e.g. Q14870 USR-TCP232-304 or Q00194 USR-TCP232-24
 - sdm630-usb requires ModBus Libraries
 - Scripts are written in Python3
 - Python3 script for PVOutput requires requests
@@ -31,7 +32,7 @@ Main C code is from Mario Stuetz in thread  [123solar Eastron SDM630 DC](http://
 	tmpfs /var/tmp tmpfs nodev,nosuid,size=1M 0 0
 	```
 
-  3. Mount hte RAM disk to create it
+  3. Mount the RAM disk to create it
 
 	```bash
 	sudo mount /var/tmp
