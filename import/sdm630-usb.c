@@ -65,7 +65,7 @@ int main(int argc, char *argv[]){
 		printf("Avg_Volt: %f\n",reform_uint16_2_float32(catcher[42],catcher[43]));
 		printf("TOT_Amp: %f\n",reform_uint16_2_float32(catcher[48],catcher[49]));
 		printf("P_TOT_W: %f\n",reform_uint16_2_float32(catcher[52],catcher[53]));
-		printf("TOT_PF: %f\n",reform_uint16_2_float32(catcher[62],catcher[63]));
+		printf("P_FACTO: %f\n",reform_uint16_2_float32(catcher[62],catcher[63]));
 		printf("Freq: %f\n",reform_uint16_2_float32(catcher[70],catcher[71]));
 		printf("IMPO_WH: %f\n",reform_uint16_2_float32(catcher[72],catcher[73]));
 		printf("EXPO_WH: %f\n",reform_uint16_2_float32(catcher[74],catcher[75]));
