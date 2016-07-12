@@ -26,9 +26,6 @@ parser.add_argument('-g', '--get', help = 'SNMP Get (Default)', action='store_tr
 parser.add_argument('-n', '--next', help = 'SNMP GetNext - determine next valid instance', action='store_true')
 parser.add_argument('OID', help = "SNMP OID to retrieve. Should begin with " + OidBase)
 
-#print(parser.parse_args(['--help']))
-
-
 args = parser.parse_args()
 
 if args.verbose:
@@ -81,132 +78,89 @@ if sdmdata.get('MODBUS','read') != 'SUCCESSFUL' :
         print("SDM Data is invalid")
     sys.exit("SDM Data is invalid")
 
+# List of OIDs
+Oids = [
+    OidBase + ".1.0",
+    OidBase + ".1.11",
+    OidBase + ".1.12",
+    OidBase + ".1.13",
+    OidBase + ".1.21",
+    OidBase + ".1.22",
+    OidBase + ".1.23",
+    OidBase + ".2.0",
+    OidBase + ".2.11",
+    OidBase + ".2.12",
+    OidBase + ".2.13",
+    OidBase + ".2.21",
+    OidBase + ".2.22",
+    OidBase + ".2.23",
+    OidBase + ".3.0",
+    OidBase + ".3.11",
+    OidBase + ".3.12",
+    OidBase + ".3.13",
+    OidBase + ".3.21",
+    OidBase + ".3.22",
+    OidBase + ".3.23",
+    OidBase + ".4.0",
+    OidBase + ".4.11",
+    OidBase + ".4.12",
+    OidBase + ".4.13",
+    OidBase + ".4.21",
+    OidBase + ".4.22",
+    OidBase + ".4.23",
+    OidBase + ".5.0",
+    OidBase + ".5.11",
+    OidBase + ".5.12",
+    OidBase + ".5.13",
+    OidBase + ".5.21",
+    OidBase + ".5.22",
+    OidBase + ".5.23",
+    OidBase + ".6.0",
+    OidBase + ".6.1",
+    OidBase + ".7.0",
+    OidBase + ".7.1",
+    OidBase + ".8.0",
+    OidBase + ".8.1",
+    OidBase + ".9.0",
+    OidBase + ".9.1",
+    OidBase + ".10.0",
+    OidBase + ".10.1",
+    OidBase + ".11.0",
+    OidBase + ".11.1",
+    OidBase + ".12.0",
+    OidBase + ".12.1",
+]
+
 #
 #  GETNEXT requests - determine next valid instance
 #
 if Next == True:
-    if (OidReq == OidBase ) or (OidReq == OidBase + ".0")  :
-        OidReq = OidBase + ".1.0"
-    elif OidReq == OidBase + ".1.0":
-        OidReq = OidBase + ".1.1.1"
-    elif OidReq == OidBase + ".1.1.1":
-        OidReq = OidBase + ".1.1.2"
-    elif OidReq == OidBase + ".1.1.2":
-        OidReq = OidBase + ".1.1.3"
-    elif OidReq == OidBase + ".1.1.3":
-        OidReq = OidBase + ".1.2.1"
-    elif OidReq == OidBase + ".1.2.1":
-        OidReq = OidBase + ".1.2.2"
-    elif OidReq == OidBase + ".1.2.2":
-        OidReq = OidBase + ".1.2.3"
-    elif OidReq == OidBase + ".1.2.3":
-        OidReq = OidBase + ".2.0"
 
-    elif OidReq == OidBase + ".2.0":
-        OidReq = OidBase + ".2.1.1"
-    elif OidReq == OidBase + ".2.1.1":
-        OidReq = OidBase + ".2.1.2"
-    elif OidReq == OidBase + ".2.1.2":
-        OidReq = OidBase + ".2.1.3"
-    elif OidReq == OidBase + ".2.1.3":
-        OidReq = OidBase + ".2.2.1"
-    elif OidReq == OidBase + ".2.2.1":
-        OidReq = OidBase + ".2.2.2"
-    elif OidReq == OidBase + ".2.2.2":
-        OidReq = OidBase + ".2.2.3"
-    elif OidReq == OidBase + ".2.2.3":
-        OidReq = OidBase + ".3.0"
+    try:
+        OidReqIndex = Oids.index(OidReq) + 1
+    except ValueError as ve:
+        if VERBOSE > 0:
+            print("OID error: " + str(ve))
+        sys.exit() 
 
-    elif OidReq == OidBase + ".3.0":
-        OidReq = OidBase + ".3.1.1"
-    elif OidReq == OidBase + ".3.1.1":
-        OidReq = OidBase + ".3.1.2"
-    elif OidReq == OidBase + ".3.1.2":
-        OidReq = OidBase + ".3.1.3"
-    elif OidReq == OidBase + ".3.1.3":
-        OidReq = OidBase + ".3.2.1"
-    elif OidReq == OidBase + ".3.2.1":
-        OidReq = OidBase + ".3.2.2"
-    elif OidReq == OidBase + ".3.2.2":
-        OidReq = OidBase + ".3.2.3"
-    elif OidReq == OidBase + ".3.2.3":
-        OidReq = OidBase + ".4.0"
-    elif OidReq == OidBase + ".4.0":
-        OidReq = OidBase + ".4.1.1"
-    elif OidReq == OidBase + ".4.1.1":
-        OidReq = OidBase + ".4.1.2"
-    elif OidReq == OidBase + ".4.1.2":
-        OidReq = OidBase + ".4.1.3"
-    elif OidReq == OidBase + ".4.1.3":
-        OidReq = OidBase + ".4.2.1"
-    elif OidReq == OidBase + ".4.2.1":
-        OidReq = OidBase + ".4.2.2"
-    elif OidReq == OidBase + ".4.2.2":
-        OidReq = OidBase + ".4.2.3"
-    elif OidReq == OidBase + ".4.2.3":
-        OidReq = OidBase + ".5.0"
-
-    elif OidReq == OidBase + ".5.0":
-        OidReq = OidBase + ".5.1.1"
-    elif OidReq == OidBase + ".5.1.1":
-        OidReq = OidBase + ".5.1.2"
-    elif OidReq == OidBase + ".5.1.2":
-        OidReq = OidBase + ".5.1.3"
-    elif OidReq == OidBase + ".5.1.3":
-        OidReq = OidBase + ".5.2.1"
-    elif OidReq == OidBase + ".5.2.1":
-        OidReq = OidBase + ".5.2.2"
-    elif OidReq == OidBase + ".5.2.2":
-        OidReq = OidBase + ".5.2.3"
-    elif OidReq == OidBase + ".5.2.3":
-        OidReq = OidBase + ".6.0"
-
-    elif OidReq == OidBase + ".6.0":
-        OidReq = OidBase + ".6.1"
-    elif OidReq == OidBase + ".6.1":
-        OidReq = OidBase + ".7.0"
-
-    elif OidReq == OidBase + ".7.0":
-        OidReq = OidBase + ".7.1"
-    elif OidReq == OidBase + ".7.1":
-        OidReq = OidBase + ".8.0"
-
-    elif OidReq == OidBase + ".8.0":
-        OidReq = OidBase + ".8.1"
-    elif OidReq == OidBase + ".8.1":
-        OidReq = OidBase + ".9.0"
-
-    elif OidReq == OidBase + ".9.0":
-        OidReq = OidBase + ".9.1"
-    elif OidReq == OidBase + ".9.1":
-        OidReq = OidBase + ".10.0"
-
-    elif OidReq == OidBase + ".10.0":
-        OidReq = OidBase + ".10.1"
-    elif OidReq == OidBase + ".10.1":
-        OidReq = OidBase + ".11.0"
-
-    elif OidReq == OidBase + ".11.0":
-        OidReq = OidBase + ".11.1"
-    elif OidReq == OidBase + ".11.1":
-        OidReq = OidBase + ".12.0"
-
-    elif OidReq == OidBase + ".12.0":
-        OidReq = OidBase + ".12.1"
-
-    else:
+    if OidReqIndex >= len(Oids):
         if VERBOSE > 0:
             print("No GETNEXT Value")
-        sys.exit()
+        sys.exit()       
+
+    OidReq = Oids[OidReqIndex]
 
 
-
-#else:
+else:
     #
     #  GET requests - check for valid instance
     #
-
-
+    try:
+        OidReqIndex = Oids.index(OidReq)
+    except ValueError as ve:
+        if VERBOSE > 0:
+            print("Invalid OID error: " + str(ve))
+        sys.exit() 
 
 
 #
@@ -236,8 +190,6 @@ try:
     elif OidReq == OidBase + ".1.2.3":
         print ("string\n{:.2f}".format( sdmdata.getfloat('MODBUS','L3_Volt') ) )
         sys.exit(0)
-
-
     elif OidReq == OidBase + ".2.0":
         print ("string\nCurrent")
         sys.exit(0)
