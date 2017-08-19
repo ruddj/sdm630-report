@@ -193,10 +193,12 @@ for dataFile in os.listdir(DATADIR):
         if SUBMIT:
             r = requests.post(PVAPIURL, data=pvData, headers=pvHeaders)
             # Check return code is OK, and remove data file    
-            if r.status_code == 200 :
+            if r.status_code == requests.codes.ok :
                 os.remove(dataFilePath)
             else:
                 print(r.status_code, r.reason)
+                # Raise exception with details of failed connection
+                r.raise_for_status()
 			
         continue
     else:
