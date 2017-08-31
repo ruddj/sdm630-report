@@ -149,6 +149,7 @@ for dataFile in os.listdir(DATADIR):
                     try:
                         with open(WUOUT) as data_file:
                             weather = json.load(data_file)
+							dTemp = weather['current_observation']['temp_c'] 
                     except ValueError:
                         TEMPERATURE = False
                         if VERBOSE > 0:
@@ -156,7 +157,7 @@ for dataFile in os.listdir(DATADIR):
                 else:
                     TEMPERATURE = False
 
-                dTemp = weather['current_observation']['temp_c']  
+                 
             else:
                 TEMPERATURE = False
 
