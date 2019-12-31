@@ -7,6 +7,7 @@
 # 1-59/5 *   *   *   *    /opt/sdm630/pvoutput.py
 
 import datetime
+import time
 import requests
 import os.path
 import sys
@@ -23,7 +24,7 @@ EXTENDED = True
 TEMPERATURE = True
 DATADIR = "/var/tmp"
 WUOUT = "/var/tmp/weather.json"
-VERBOSE = 1
+VERBOSE = 0
 SUBMIT = True
 
 # Arguments
@@ -149,14 +150,18 @@ for dataFile in os.listdir(DATADIR):
                     try:
                         with open(WUOUT) as data_file:
                             weather = json.load(data_file)
-							dTemp = weather['current_observation']['temp_c'] 
+                            dTemp = weather['main']['temp'] 
+                            dTempTime = float(weather['dt']) 
+                            if time.time() - dTempTime > 3600:
+                                TEMPERATURE = False
+                                #if VERBOSE > 0:
+                                print ("Temperature reading is old and from: " + time.strftime('%Y-%m-%d %H:%M', time.localtime(dTempTime)))
                     except ValueError:
                         TEMPERATURE = False
                         if VERBOSE > 0:
                             print ("Failed reading weather from: " + WUOUT)
                 else:
                     TEMPERATURE = False
-
                  
             else:
                 TEMPERATURE = False
