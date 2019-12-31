@@ -9,12 +9,12 @@ WUOUT=`awk -F ':' '{if (! ($0 ~ /^;/) && $0 ~ /WeatherFile/) print $2}' ${CONFIG
 PWS=`awk -F ':' '{if (! ($0 ~ /^;/) && $0 ~ /PWS/) print $2}' ${CONFIG} | tr -d ' '`
 WUAPI=`awk -F ':' '{if (! ($0 ~ /^;/) && $0 ~ /WUAPI/) print $2}' ${CONFIG} | tr -d ' '`
 
-URL=http://api.wunderground.com/api/${WUAPI}/conditions/q/pws:${PWS}.json
+URL="http://api.openweathermap.org/data/2.5/weather?id=${PWS}&units=metric&APPID=${WUAPI}"
 
 /usr/bin/wget -q ${URL} -O ${WUOUT}.${PWS}
 
 # Test download was succesful
-/bin/grep -Fq current_observation "${WUOUT}.${PWS}"
+/bin/grep -Fq dt "${WUOUT}.${PWS}"
 EXIT=$?
 
 if [[ $EXIT -eq 0 ]] ; then
